@@ -1,7 +1,9 @@
 
 "use client";
 
-import { motion } from "motion/react";
+import { useState } from "react";
+import type { PointerEvent, ReactNode } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import {
     Code2,
     Database,
@@ -10,6 +12,8 @@ import {
     Terminal,
     Globe,
     Sparkles,
+    ChartNoAxesCombined,
+    GraduationCap,
 } from "lucide-react";
 
 const skillGroups = [
@@ -21,168 +25,246 @@ const skillGroups = [
     {
         title: "Backend",
         icon: Layers3,
-        skills: ["Node.js", "Express.js", "REST APIs", "Prisma"],
+        skills: ["Node.js", "REST APIs", "Prisma"],
     },
     {
-        title: "Database",
+        title: "Data & Databases",
         icon: Database,
-        skills: ["MongoDB", "PostgreSQL", "SQL"],
+        skills: ["SQL", "PostgreSQL", "MongoDB", "Data Analysis"],
+    },
+    {
+        title: "AI & Machine Learning",
+        icon: BrainCircuit,
+        skills: ["Machine Learning", "Python", "Data Visualization"],
     },
     {
         title: "Tools & Workflow",
         icon: Terminal,
-        skills: ["Git", "GitHub", "Bun", "Postman", "VS Code"],
+        skills: ["Git", "GitHub", "Postman", "VS Code"],
     },
 ];
 
-// const highlights = [
-//     { value: "2+", label: "Professional roles" },
-//     { value: "3+", label: "Web projects" },
-//     { value: "Full-stack", label: "Development focus" },
-// ];
+function PremiumCard({
+    children,
+    className = "",
+    delay = 0,
+    interactive = true,
+}: {
+    children: ReactNode;
+    className?: string;
+    delay?: number;
+    interactive?: boolean;
+}) {
+    const reducedMotion = useReducedMotion();
+    const [tilt, setTilt] = useState({ x: 0, y: 0 });
+
+    function handlePointerMove(event: PointerEvent<HTMLDivElement>) {
+        if (reducedMotion || !interactive || event.pointerType !== "mouse") {
+            return;
+        }
+
+        const rect = event.currentTarget.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width;
+        const y = (event.clientY - rect.top) / rect.height;
+
+        setTilt({
+            x: (0.5 - y) * 3,
+            y: (x - 0.5) * 3,
+        });
+    }
+
+    function resetTilt() {
+        setTilt({ x: 0, y: 0 });
+    }
+
+    return (
+        <motion.div
+            initial={reducedMotion ? false : { opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{
+                duration: reducedMotion ? 0 : 0.45,
+                delay: reducedMotion ? 0 : delay,
+                ease: "easeOut",
+            }}
+            onPointerMove={handlePointerMove}
+            onPointerLeave={resetTilt}
+            style={{
+                transform: `perspective(1200px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+                transformStyle: "preserve-3d",
+            }}
+            className={`relative transition-[transform,border-color,box-shadow] duration-300 ease-out ${className}`}
+        >
+            {children}
+        </motion.div>
+    );
+}
 
 export default function About() {
+    const reducedMotion = useReducedMotion();
+
     return (
         <section
             id="about"
-            className="relative overflow-hidden bg-[#09090b] px-5 py-24 text-white md:px-10 md:py-32"
+            className="relative isolate overflow-hidden bg-[var(--background)] px-5 py-16 text-[var(--foreground)] transition-colors duration-300 md:px-8 md:py-20"
         >
-            <div className="mx-auto max-w-7xl">
+            <div
+                aria-hidden="true"
+                className="pointer-events-none absolute -left-32 top-20 h-64 w-64 rounded-full bg-[var(--accent-glow)] blur-[100px]"
+            />
+
+            <div
+                aria-hidden="true"
+                className="pointer-events-none absolute -right-32 bottom-10 h-72 w-72 rounded-full bg-[var(--accent-glow)] blur-[120px]"
+            />
+
+            <div className="relative mx-auto max-w-7xl">
+                {/* Heading */}
                 <motion.div
-                    initial={{ opacity: 0, y: 24 }}
+                    initial={reducedMotion ? false : { opacity: 0, y: 16 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 0.6 }}
+                    transition={{ duration: 0.45, ease: "easeOut" }}
                 >
-                    <p className="mb-4 flex items-center gap-2 text-sm font-medium uppercase tracking-[0.25em] text-[#c6ff4d]">
-                        <Sparkles size={16} />
-                        Get to know me
+                    <p className="mb-3 flex items-center gap-2 text-xs font-medium uppercase tracking-[0.22em] text-[var(--accent)]">
+                        <Sparkles size={14} />
+                        About me
                     </p>
 
-                    <h2 className="max-w-3xl text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl">
-                        More than code.
-                        <br />
-                        <span className="text-zinc-500">I build with purpose.</span>
+                    <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
+                        Engineering ideas{" "}
+                        <span className="text-[var(--muted)]">
+                            into reality.
+                        </span>
                     </h2>
                 </motion.div>
 
-                <div className="mt-14 grid gap-8 lg:grid-cols-[1fr_0.9fr]">
-                    <motion.div
-                        initial={{ opacity: 0, x: -24 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, amount: 0.2 }}
-                        transition={{ duration: 0.6 }}
-                        className="rounded-3xl border border-white/10 bg-white/[0.025] p-7 md:p-10"
+                <div className="mt-8 grid gap-5 lg:grid-cols-[1fr_1fr] lg:gap-6">
+                    <PremiumCard
+                        className="group h-full overflow-hidden rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-5 shadow-[var(--card-shadow)] hover:border-[var(--accent)]/40 sm:p-6"
                     >
-                        <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl border border-[#c6ff4d]/20 bg-[#c6ff4d]/10">
-                            <Code2 className="text-[#c6ff4d]" size={23} />
-                        </div>
+                        <div
+                            aria-hidden="true"
+                            className="pointer-events-none absolute -right-14 -top-14 h-40 w-40 rounded-full bg-[var(--accent-glow)] blur-3xl"
+                        />
 
+                        <div className="relative">
+                            <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--accent)]/20 bg-[var(--accent-glow)]">
+                                <Code2 size={21} className="text-[var(--accent)]" />
+                            </div>
 
-                        <h3 className="text-2xl font-semibold">
-                            Hi, I&apos;m Nikhil Dhiman.
-                        </h3>
+                            <h3 className="text-xl font-semibold tracking-tight sm:text-2xl">
+                                Hi, I&apos;m Nikhil Dhiman.
+                            </h3>
 
-                        <p className="mt-3 text-sm font-medium text-[#c6ff4d]">
-                            Software Engineer · ITDA, Dehradun
-                        </p>
-
-                        <div className="mt-5 space-y-4 leading-8 text-zinc-400">
-                            <p>
-                                I&apos;m currently working as a Software Engineer at the
-                                Information Technology Development Agency (ITDA),
-                                Dehradun, where I contribute to building and maintaining
-                                modern web applications and digital services.
+                            <p className="mt-2 text-sm font-medium text-[var(--accent)]">
+                                Software Engineer · ITDA, Dehradun
                             </p>
 
-                            <p>
-                                My work involves developing responsive user interfaces,
-                                building reusable components, integrating REST APIs, and
-                                creating accessible, user-friendly web experiences using
-                                technologies like Next.js, React, Tailwind CSS, and Node.js.
+                            <div className="mt-4 space-y-3 text-sm leading-6 text-[var(--muted)]">
+                                <p>
+                                    I build and maintain modern web applications and
+                                    digital services at the Information Technology
+                                    Development Agency (ITDA), Dehradun.
+                                </p>
+
+                                <p>
+                                    My focus is on responsive interfaces, reusable
+                                    components, and REST API integration using React,
+                                    Next.js, and Node.js.
+                                </p>
+
+                                <p>
+                                    I also explore Python, SQL, data analysis, and
+                                    machine learning to create data-driven solutions.
+                                </p>
+                            </div>
+
+                            <p className="mt-5 border-t border-[var(--border)] pt-4 text-sm font-medium text-[var(--foreground)]">
+                                Code is my tool. Data is my signal.{" "}
+                                <span className="text-[var(--accent)]">
+                                    AI is my next frontier.
+                                </span>
                             </p>
 
-                            <p>
-                                I enjoy solving practical problems through clean code,
-                                thoughtful UI design, and continuous learning while
-                                building reliable digital solutions.
-                            </p>
-                        </div>
-
-
-                        {/* <div className="mt-9 grid grid-cols-1 gap-3 sm:grid-cols-3">
-                            {highlights.map((item) => (
-                                <div
-                                    key={item.label}
-                                    className="rounded-2xl border border-white/10 bg-black/20 p-4"
-                                >
-                                    <p className="text-xl font-semibold text-[#c6ff4d]">
-                                        {item.value}
-                                    </p>
-                                    <p className="mt-2 text-xs leading-5 text-zinc-500">
-                                        {item.label}
+                            <div className="mt-4 flex items-center gap-3 rounded-2xl border border-[var(--border)] bg-[var(--surface-muted)] p-3">
+                                <GraduationCap
+                                    size={22}
+                                    className="shrink-0 text-[var(--accent)]"
+                                />
+                                <div className="min-w-0">
+                                    <h4 className="text-sm font-semibold">
+                                        B.Tech (Hons.) CSE
+                                    </h4>
+                                    <p className="mt-0.5 text-xs leading-5 text-[var(--muted)]">
+                                        AI & Machine Learning · Quantum University
                                     </p>
                                 </div>
-                            ))}
-                        </div> */}
-                    </motion.div>
+                            </div>
+                        </div>
+                    </PremiumCard>
 
-                    {/* Skills */}
-                    <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="grid content-start gap-3 sm:grid-cols-2">
                         {skillGroups.map((group, index) => {
                             const Icon = group.icon;
 
                             return (
-                                <motion.div
+                                <PremiumCard
                                     key={group.title}
-                                    initial={{ opacity: 0, y: 24 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true, amount: 0.2 }}
-                                    transition={{ duration: 0.5, delay: index * 0.08 }}
-                                    whileHover={{ y: -4 }}
-                                    className="rounded-3xl border border-white/10 bg-white/[0.025] p-6 transition-colors hover:border-[#c6ff4d]/30"
+                                    delay={index * 0.05}
+                                    className="group overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4 hover:border-[var(--accent)]/40 hover:shadow-[0_12px_35px_var(--accent-glow)]"
                                 >
-                                    <div className="mb-5 flex items-center gap-3">
-                                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#c6ff4d]/10">
-                                            <Icon size={20} className="text-[#c6ff4d]" />
+                                    <div className="relative">
+                                        <div className="mb-3 flex items-center gap-2.5">
+                                            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-[var(--accent)]/15 bg-[var(--accent-glow)] transition-transform duration-300 group-hover:scale-105">
+                                                <Icon
+                                                    size={18}
+                                                    className="text-[var(--accent)]"
+                                                />
+                                            </div>
+
+                                            <h3 className="text-sm font-semibold tracking-tight">
+                                                {group.title}
+                                            </h3>
                                         </div>
 
-                                        <h3 className="font-semibold">{group.title}</h3>
+                                        <div className="flex flex-wrap gap-1.5">
+                                            {group.skills.map((skill) => (
+                                                <span
+                                                    key={skill}
+                                                    className="rounded-lg border border-[var(--border)] bg-[var(--surface-muted)] px-2 py-1 text-[11px] text-[var(--muted)] transition-colors duration-200 hover:border-[var(--accent)]/40 hover:text-[var(--accent)]"
+                                                >
+                                                    {skill}
+                                                </span>
+                                            ))}
+                                        </div>
                                     </div>
-
-                                    <div className="flex flex-wrap gap-2">
-                                        {group.skills.map((skill) => (
-                                            <span
-                                                key={skill}
-                                                className="rounded-lg border border-white/[0.08] bg-white/[0.03] px-2.5 py-1.5 text-xs text-zinc-400 transition-colors hover:border-[#c6ff4d]/30 hover:text-white"
-                                            >
-                                                {skill}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </motion.div>
+                                </PremiumCard>
                             );
                         })}
 
-                        <motion.div
-                            initial={{ opacity: 0, y: 24 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, amount: 0.2 }}
-                            transition={{ duration: 0.5, delay: 0.3 }}
-                            className="flex items-center gap-4 rounded-3xl border border-[#c6ff4d]/20 bg-[#c6ff4d]/[0.04] p-6 sm:col-span-2"
+                        <PremiumCard
+                            delay={0.25}
+                            interactive={false}
+                            className="flex items-center gap-3 rounded-2xl border border-[var(--accent)]/20 bg-[var(--accent-glow)] p-4 sm:col-span-2"
                         >
-                            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#c6ff4d]/10">
-                                <BrainCircuit size={24} className="text-[#c6ff4d]" />
+                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[var(--accent)]/20 bg-[var(--surface)]">
+                                <ChartNoAxesCombined
+                                    size={21}
+                                    className="text-[var(--accent)]"
+                                />
                             </div>
 
                             <div>
-                                <h3 className="font-semibold">Always learning</h3>
-                                <p className="mt-1 text-sm leading-6 text-zinc-400">
-                                    Exploring AI, automation, and better ways to build useful
-                                    software.
+                                <h3 className="text-sm font-semibold">
+                                    Building across disciplines
+                                </h3>
+                                <p className="mt-1 text-xs leading-5 text-[var(--muted)]">
+                                    Full-stack development, analytics, and AI —
+                                    focused on meaningful digital solutions.
                                 </p>
                             </div>
-                        </motion.div>
+                        </PremiumCard>
                     </div>
                 </div>
             </div>
