@@ -10,7 +10,7 @@ const projects = [
     {
         number: "01",
         title: "Haridwar Kumbh 2027",
-        category: "Tourism / Culture",
+        category: " Government Tourism",
         description:
             "A digital platform for Haridwar Kumbh 2027, bringing together spiritual traditions, bathing dates, destinations, travel information, and public facilities.",
         image: "/assets/haridwar-kumbh.webp",
@@ -42,7 +42,7 @@ const projects = [
     },
     {
         number: "04",
-        title: "Apuni Sarkar",
+        title: "Apuni Sarkar Landing Page",
         category: "Citizen Services",
         description:
             "An e-governance platform focused on making citizen services easier to discover and access through a clean, responsive experience.",
@@ -107,7 +107,7 @@ export default function Work() {
 
                         <h2 className="text-4xl font-semibold tracking-tight sm:text-6xl">
                             Things I&apos;ve
-                            <span className="text-white/40"> built.</span>
+                            <span className="text-white/40"> help to built.</span>
                         </h2>
                     </div>
 
