@@ -76,14 +76,12 @@ export default function Work() {
             id="work"
             className="relative isolate overflow-hidden border-t border-white/[0.08] bg-[#09090b] px-5 py-20 text-white sm:px-8 sm:py-28"
         >
-            {/* Ambient background */}
             <div
                 aria-hidden="true"
                 className="pointer-events-none absolute -right-40 top-40 -z-10 h-[420px] w-[420px] rounded-full bg-[#c6ff4d]/[0.06] blur-[130px]"
             />
 
             <div className="mx-auto max-w-7xl">
-                {/* Heading */}
                 <div className="mb-12 flex flex-col justify-between gap-8 md:mb-16 md:flex-row md:items-end">
                     <div>
                         <div className="mb-6 flex items-center gap-3">
@@ -112,9 +110,7 @@ export default function Work() {
                     </div>
                 </div>
 
-                {/* Main showcase */}
                 <div className="grid gap-8 lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-12">
-                    {/* Project navigation */}
                     <div className="order-2 lg:order-1">
                         <div className="mb-4 flex items-center justify-between">
                             <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/35">
@@ -136,14 +132,14 @@ export default function Work() {
                                         onClick={() => setActiveIndex(index)}
                                         aria-pressed={isActive}
                                         className={`group relative border-t py-5 pl-4 pr-2 text-left transition-colors duration-300 ${isActive
-                                                ? "border-[#c6ff4d]/60"
-                                                : "border-white/10 hover:border-white/30"
+                                            ? "border-[#c6ff4d]/60"
+                                            : "border-white/10 hover:border-white/30"
                                             }`}
                                     >
                                         <span
                                             className={`absolute bottom-0 left-0 top-0 w-[2px] origin-top transition-transform duration-300 ${isActive
-                                                    ? "scale-y-100 bg-[#c6ff4d]"
-                                                    : "scale-y-0 bg-[#c6ff4d] group-hover:scale-y-100"
+                                                ? "scale-y-100 bg-[#c6ff4d]"
+                                                : "scale-y-0 bg-[#c6ff4d] group-hover:scale-y-100"
                                                 }`}
                                         />
 
@@ -158,16 +154,16 @@ export default function Work() {
                                             <MoveUpRight
                                                 size={15}
                                                 className={`transition-all duration-300 ${isActive
-                                                        ? "text-[#c6ff4d]"
-                                                        : "-translate-x-1 translate-y-1 text-white/20 opacity-0 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100"
+                                                    ? "text-[#c6ff4d]"
+                                                    : "-translate-x-1 translate-y-1 text-white/20 opacity-0 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100"
                                                     }`}
                                             />
                                         </div>
 
                                         <p
                                             className={`mt-3 text-[15px] font-medium leading-snug transition-colors sm:text-base ${isActive
-                                                    ? "text-white"
-                                                    : "text-white/50 group-hover:text-white/85"
+                                                ? "text-white"
+                                                : "text-white/50 group-hover:text-white/85"
                                                 }`}
                                         >
                                             {project.title}
@@ -187,9 +183,7 @@ export default function Work() {
                         </p>
                     </div>
 
-                    {/* Featured project */}
                     <div className="order-1 min-w-0 lg:order-2">
-                        {/* Screenshot stage */}
                         <div className="group relative">
                             <div
                                 aria-hidden="true"
@@ -197,7 +191,6 @@ export default function Work() {
                             />
 
                             <div className="relative overflow-hidden rounded-2xl border border-white/[0.12] bg-[#111113] sm:rounded-3xl">
-                                {/* Browser chrome */}
                                 <div className="relative z-10 flex h-11 items-center justify-between border-b border-white/[0.08] bg-[#111113] px-4 sm:px-5">
                                     <div className="flex items-center gap-1.5">
                                         <span className="h-2 w-2 rounded-full bg-white/20" />
@@ -215,7 +208,6 @@ export default function Work() {
                                     </span>
                                 </div>
 
-                                {/* Image preview */}
                                 <div className="relative aspect-[4/3] overflow-hidden bg-[#141416] sm:aspect-[16/10] lg:aspect-[16/9]">
                                     <div
                                         aria-hidden="true"
@@ -250,7 +242,6 @@ export default function Work() {
                                         </motion.div>
                                     </AnimatePresence>
 
-                                    {/* Overlay labels */}
                                     <div className="pointer-events-none absolute bottom-4 left-4 z-10 sm:bottom-6 sm:left-6">
                                         <span className="rounded-full border border-white/15 bg-black/50 px-3 py-1.5 font-mono text-[9px] uppercase tracking-[0.16em] text-white/70 backdrop-blur-md">
                                             Featured project
@@ -264,7 +255,6 @@ export default function Work() {
                             </div>
                         </div>
 
-                        {/* Project information */}
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={activeProject.number}
@@ -317,7 +307,6 @@ export default function Work() {
                     </div>
                 </div>
 
-                {/* Bottom divider and navigation indicator */}
                 <div className="mt-16 flex items-center justify-between border-t border-white/10 pt-6 sm:mt-20">
                     <div className="flex items-center gap-3">
                         <span className="h-2 w-2 rounded-full bg-[#c6ff4d] shadow-[0_0_12px_rgba(198,255,77,0.6)]" />
@@ -335,8 +324,8 @@ export default function Work() {
                                 aria-label={`Show ${project.title}`}
                                 aria-pressed={activeIndex === index}
                                 className={`h-1.5 rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c6ff4d] ${activeIndex === index
-                                        ? "w-8 bg-[#c6ff4d]"
-                                        : "w-3 bg-white/15 hover:bg-white/40"
+                                    ? "w-8 bg-[#c6ff4d]"
+                                    : "w-3 bg-white/15 hover:bg-white/40"
                                     }`}
                             />
                         ))}
