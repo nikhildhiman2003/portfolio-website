@@ -84,30 +84,15 @@ export default function Work() {
             <div className="mx-auto max-w-7xl">
                 <div className="mb-12 flex flex-col justify-between gap-8 md:mb-16 md:flex-row md:items-end">
                     <div>
-                        <div className="mb-6 flex items-center gap-3">
-                            <span className="h-px w-8 bg-[#c6ff4d]" />
-                            <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#c6ff4d]">
-                                Selected work / 2026
-                            </p>
-                        </div>
+                    
 
                         <h2 className="max-w-3xl text-[clamp(2.8rem,7vw,5.8rem)] font-medium leading-[0.94] tracking-[-0.075em]">
-                            Projects built
+                            Things I&apos;ve helped
                             <br />
-                            for <span className="text-[#c6ff4d]">real impact.</span>
+                            to <span className="text-[#c6ff4d]">build</span>
                         </h2>
                     </div>
 
-                    <div className="flex max-w-xs items-start gap-3 pb-1">
-                        <ArrowDownRight
-                            size={19}
-                            className="mt-1 shrink-0 text-[#c6ff4d]"
-                        />
-                        <p className="text-sm leading-6 text-white/45">
-                            Digital platforms, public services and meaningful
-                            experiences built for the real world.
-                        </p>
-                    </div>
                 </div>
 
                 <div className="grid gap-8 lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-12">
