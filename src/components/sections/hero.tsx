@@ -39,7 +39,7 @@ export default function Hero() {
                         initial={{ opacity: 0, y: 18 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
-                        className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm text-zinc-300"
+                        className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/4 px-4 py-2 text-sm text-zinc-300"
                     >
                         <span className="relative flex h-2 w-2">
                             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#c6ff4d] opacity-60" />
@@ -90,15 +90,14 @@ export default function Hero() {
                         and reliable functionality.
                     </motion.p>
 
-                    {/* Role chips */}
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.5 }}
                         className="mt-6 flex flex-wrap gap-2"
                     >
-                       
-                     
+
+
                     </motion.div>
 
                     <motion.div
@@ -143,7 +142,7 @@ export default function Hero() {
                             aria-label="GitHub"
                             className="transition-colors hover:text-[#c6ff4d]"
                         >
-                            {/* <Github size={19} /> */} 
+                            {/* <Github size={19} /> */}
                         </a>
 
                         <a
@@ -164,7 +163,7 @@ export default function Hero() {
                     transition={{ duration: 0.9, delay: 0.3 }}
                     className="relative mx-auto w-full max-w-md"
                 >
-                    <div className="absolute -inset-5 rounded-[2rem] bg-[#c6ff4d]/5 blur-2xl" />
+                    <div className="absolute -inset-5 rounded-4xl bg-[#c6ff4d]/5 blur-2xl" />
 
                     <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-zinc-900/80 p-6 shadow-2xl backdrop-blur-xl sm:p-8">
                         <div className="flex items-center justify-between border-b border-white/10 pb-5">
